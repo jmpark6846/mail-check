@@ -3,6 +3,7 @@ import dns.resolver
 import socket
 import smtplib
 
+
 def validate_email(mail):
 
     result = {}
@@ -31,10 +32,7 @@ def validate_email(mail):
 
     code, message = server.rcpt(str(mail))
 
-    result = {
-        'code': code,
-        'message': message,
-    }
+    result = { 'code': code }
 
     if code == 250:
         result['valid']=True
