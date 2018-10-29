@@ -13,9 +13,11 @@
 {% block script %}
 <script>
     $('#button-verify').on('click', function(){
-      var email = $('#email-to-verify').value
+      var email = $('#email-to-verify').val()
       var post_data = { email: email }
+      console.log(post_data)
       $.ajax({
+        url:'/checkmail/validate/',
         method:'post',
         data:post_data
       })
@@ -23,7 +25,7 @@
         console.log(result)
       })
       .catch(function(error){
-        console.log(error)
+        console.log(error.responseText)
       })
     })
 </script>

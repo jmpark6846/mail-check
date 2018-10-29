@@ -12,7 +12,7 @@ def validate_email(mail):
         result = {
             'valid':False,
             'code':-1,
-            'message': 'bad syntax'
+            'message': '올바르지 않은 이메일입니다.'
         }
         return result
 
@@ -32,12 +32,14 @@ def validate_email(mail):
 
     code, message = server.rcpt(str(mail))
 
-    result = { 'code': code }
+    result = { 'smtp_code': code }
 
     if code == 250:
         result['valid']=True
+        result['message'] = '존재하는 이메일입니다.'
     else:
         result['valid'] = False
+        result['message'] = '계정이 도메인서버에 존재하지 않습니다.'
 
     server.quit()
     return result
