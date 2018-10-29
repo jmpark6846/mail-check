@@ -11,5 +11,5 @@ class MailValidationTestCase(TestCase):
 
     def test_can_validate_an_mail(self):
         mail_data = { 'email': self.mail }
-        res = self.client.post(reverse('mymail:validate_email'), mail_data)
+        res = self.client.post(reverse('checkmail:validate_mail'), mail_data)
         self.assertEqual(res.status_code, 200)

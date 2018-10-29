@@ -5,8 +5,15 @@ import smtplib
 
 def validate_email(mail):
 
+    result = {}
+
     if not check_mail_syntax(mail):
-        raise ValueError('bad syntax')
+        result = {
+            'valid':False,
+            'code':-1,
+            'message': 'bad syntax'
+        }
+        return result
 
     domain_name = mail.split('@')[1]
 
@@ -24,14 +31,18 @@ def validate_email(mail):
 
     code, message = server.rcpt(str(mail))
 
+    result = {
+        'code': code,
+        'message': message,
+    }
+
     if code == 250:
-        print('valid')
-        # return True
+        result['valid']=True
     else:
-        print('invalid')
-        # return False
+        result['valid'] = False
 
     server.quit()
+    return result
 
 
 def check_mail_syntax(mail):
