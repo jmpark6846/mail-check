@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MymailConfig(AppConfig):
+class CheckmailConfig(AppConfig):
     name = 'checkmail'

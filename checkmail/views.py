@@ -5,7 +5,7 @@ from .email import validate_email
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'checkmail/index.html')
 
 def validate_mail(request):
     if request.method == 'POST':

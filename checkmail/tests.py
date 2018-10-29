@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from mymail.email import validate_email
+from checkmail.email import validate_email
 
 # Create your tests here.
 class MailValidationTestCase(TestCase):
