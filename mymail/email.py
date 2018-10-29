@@ -53,6 +53,3 @@ def get_mx_record(domain_name):
 def check_mail_accounts():
     pass
 
-
-solution('jmpark6846@gmail.com')
-
