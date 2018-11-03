@@ -10,17 +10,18 @@ def index(request):
     return render(request, 'checkmail/index.html')
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def mail_validation(request):
-    email = request.POST['email']
+    if request.method == 'POST':
+        email = request.POST['email']
 
-    if not email:
-        error_msg = {"msg":"email required"}
-        return Response(status=400, data=error_msg)
+        if not email:
+            error_msg = {"msg":"email required"}
+            return Response(status=400, data=error_msg)
 
-    res = validate_email(email)
+        res = validate_email(email)
 
-    if res['valid']:
-        return Response(status=200, data=res)
-    else:
-        return Response(status=400, data=res)
+        if res['valid']:
+            return Response(status=200, data=res)
+        else:
+            return Response(status=400, data=res)

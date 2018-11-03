@@ -14,14 +14,19 @@
 <script>
 $(function(){
 
+    $('#email-to-verify').on('keydown', function(){
+        $(this).removeClass('border-info')
+        $(this).removeClass('border-danger')
+    })
     $('#button-verify').on('click', function(){
-
         var email = $('#email-to-verify').val()
 
         if(!email){
             $('.info').text('이메일을 입력하세요.')
             return
         }
+
+        $('.info').text('처리중..')
 
         var post_data = { email: email }
 
@@ -31,11 +36,14 @@ $(function(){
             data:post_data
         })
         .then(function(result){
+            $('#email-to-verify').addClass('border-success')
             $('.info').text(result['message'])
         })
         .catch(function(error){
+            $('#email-to-verify').addClass('border-danger')
             $('.info').text(error.responseJSON['message'])
         })
+
     })
 })
 </script>
