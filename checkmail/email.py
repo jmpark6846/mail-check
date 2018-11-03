@@ -5,41 +5,55 @@ import smtplib
 
 
 def validate_email(mail):
-
     result = {}
 
     if not check_mail_syntax(mail):
         result = {
             'valid':False,
-            'code':-1,
             'message': '올바르지 않은 이메일입니다.'
         }
         return result
 
     domain_name = mail.split('@')[1]
 
-    mx_record = get_mx_record(domain_name)
+    try:
+        server, mx_record = get_mail_server(domain_name)
+    except ValueError:
+        result = {
+            'valid': False,
+            'message': '존재하지 않는 메일서버입니다.'
+        }
+        return result
 
-    host = socket.gethostname()
 
-    server = smtplib.SMTP()
-    server.set_debuglevel(0)
+    try:
+        server.connect(mx_record)
+        host = socket.gethostname()
+        server.helo(host)
 
-    server.connect(mx_record)
-    server.helo(host)
+    except smtplib.SMTPServerDisconnected:
+
+        result = {
+            'valid': False,
+            'message': '메일서버와 연결이 종료되었습니다.'
+        }
+        return result
+
     server.mail('hi@hi.com')
-
 
     code, message = server.rcpt(str(mail))
 
-    result = { 'smtp_code': code }
 
     if code == 250:
-        result['valid']=True
-        result['message'] = '존재하는 이메일입니다.'
+        result = {
+            'valid': True,
+            'message': '존재하는 이메일입니다.'
+        }
     else:
-        result['valid'] = False
-        result['message'] = '계정이 도메인서버에 존재하지 않습니다.'
+        result = {
+            'valid': False,
+            'message': '계정이 네임서버에 존재하지 않습니다.'
+        }
 
     server.quit()
     return result
@@ -50,17 +64,12 @@ def check_mail_syntax(mail):
     return False if match == None else True
 
 
-def get_mx_record(domain_name):
-    try:
-        records = dns.resolver.query(domain_name, 'MX')
-    except Exception:
-        print('invalid')
-        raise ValueError('bad domain name')
+def get_mail_server(domain_name):
+    records = dns.resolver.query(domain_name, 'MX')
 
     mx_record = records[0].exchange
     mx_record = str(mx_record)
-    return mx_record
 
-def check_mail_accounts():
-    pass
-
+    server = smtplib.SMTP()
+    server.set_debuglevel(0)
+    return (server, mx_record)

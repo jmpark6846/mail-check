@@ -1,32 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Email Validation</h1>
-
 <div class="input-group mb-3">
-  <input id='email-to-verify' type="text" class="form-control" placeholder="이메일을 입력하세요." aria-label="Email to verify" aria-describedby="button-verify">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button" id="button-verify">검사</button>
-  </div>
+    <input id='email-to-verify' type="text" class="form-control" placeholder="이메일을 입력하세요." aria-label="Email to verify" aria-describedby="button-verify">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-verify">검사</button>
+    </div>
 </div>
+<div class="info"></div>
 
 {% endblock %}
 {% block script %}
 <script>
+$(function(){
+
     $('#button-verify').on('click', function(){
-      var email = $('#email-to-verify').val()
-      var post_data = { email: email }
-      console.log(post_data)
-      $.ajax({
-        url:'/checkmail/validate/',
-        method:'post',
-        data:post_data
-      })
-      .then(function(result){
-        console.log(result)
-      })
-      .catch(function(error){
-        console.log(error.responseText)
-      })
+
+        var email = $('#email-to-verify').val()
+
+        if(!email){
+            $('.info').text('이메일을 입력하세요.')
+            return
+        }
+
+        var post_data = { email: email }
+
+        $.ajax({
+            url:'/checkmail/validate/',
+            method:'post',
+            data:post_data
+        })
+        .then(function(result){
+            $('.info').text(result['message'])
+        })
+        .catch(function(error){
+            $('.info').text(error.responseJSON['message'])
+        })
     })
+})
 </script>
 {% endblock %}
