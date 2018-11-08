@@ -11,7 +11,7 @@ def index(request):
 @api_view(['GET'])
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 def mail_validation(request, email):
-
+    print(request.user)
     if not email:
         response_data = { 'message' : '메일을 입력해주세요.', 'valid':False }
         return Response(data=response_data, status=400, content_type='application/json')

@@ -131,21 +131,16 @@ STATICFILES_DIRS = (
     STATIC_DIR,
 )
 
-REST_FRAMEWORK = {
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '1/day',
-        'user': '5/day'
-    }
-}
-
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_URL
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1/minute',
+        'user': '5/minute'
+    }
 }
