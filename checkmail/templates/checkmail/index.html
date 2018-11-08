@@ -1,55 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Email Validation</h1>
-<div class="input-group mb-3">
-    <textarea id='email-to-verify' class="form-control" placeholder="이메일을 입력하세요." aria-label="Email to verify" aria-describedby="button-verify"></textarea>
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="button-verify">검사</button>
+<h1>Email Validation Token</h1>
+<div class="card">
+    <div class="card-body">
+        {{user.token}}
     </div>
 </div>
-<div class="info">
-    <table class="table table-sm">
-        
-    </table>
-</div>
-
 {% endblock %}
 {% block script %}
 <script>
-$(function(){
-
-    $('#email-to-verify').on('keydown', function(){
-        $(this).removeClass('border-info')
-        $(this).removeClass('border-danger')
-    })
-    $('#button-verify').on('click', function(){
-        var email = $('#email-to-verify').val()
-
-        if(!email){
-            $('.info').text('이메일을 입력하세요.')
-            return
-        }
-
-        $('.info').text('처리중..')
-
-        var post_data = { email: email }
-
-        $.ajax({
-            url:'/checkmail/validate/',
-            method:'post',
-            data:post_data
-        })
-        .then(function(result){
-            console.log(result)
-            $('#email-to-verify').addClass('border-success')
-            $('.info').text(result['message'])
-        })
-        .catch(function(error){
-            $('#email-to-verify').addClass('border-danger')
-            $('.info').text(error.responseJSON['message'])
-        })
-
-    })
-})
 </script>
 {% endblock %}
