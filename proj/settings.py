@@ -25,7 +25,10 @@ SECRET_KEY = 'snu5=qg%cq0jx44bpe74^8^*58v1v!)oy5sjn*)q-y7b&rq($9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = [
+    'mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com',
+    'localhost',
+]
 
 
 # Application definition

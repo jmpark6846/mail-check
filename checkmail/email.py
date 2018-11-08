@@ -9,7 +9,9 @@ def validate_email(mail):
 
     if not check_mail_syntax(mail):
         result = {
+            'email':mail,
             'valid':False,
+            'status':400,
             'message': '올바르지 않은 이메일입니다.'
         }
         return result
@@ -18,10 +20,12 @@ def validate_email(mail):
 
     try:
         server, mx_record = get_mail_server(domain_name)
-    except ValueError:
+    except dns.resolver.NXDOMAIN:
         result = {
+            'email': mail,
             'valid': False,
-            'message': '존재하지 않는 메일서버입니다.'
+            'status':400,
+            'message': '{}이 존재하지 않거나 잘못되었습니다.'.format(domain_name)
         }
         return result
 
@@ -34,8 +38,10 @@ def validate_email(mail):
     except smtplib.SMTPServerDisconnected:
 
         result = {
+            'email': mail,
             'valid': False,
-            'message': '메일서버와 연결이 종료되었습니다.'
+            'status': 500,
+            'message': '메일 서버에서 연결을 차단하였습니다.'
         }
         return result
 
@@ -46,13 +52,17 @@ def validate_email(mail):
 
     if code == 250:
         result = {
+            'email': mail,
             'valid': True,
+            'status':200,
             'message': '존재하는 이메일입니다.'
         }
     else:
         result = {
+            'email': mail,
             'valid': False,
-            'message': '계정이 네임서버에 존재하지 않습니다.'
+            'status': 400,
+            'message': '{}의 메일서버({})에 계정이 존재하지 않습니다.'.format(domain_name, mx_record)
         }
 
     server.quit()
@@ -60,7 +70,7 @@ def validate_email(mail):
 
 
 def check_mail_syntax(mail):
-    match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', mail)
+    match = re.match('^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$', mail)
     return False if match == None else True
 
 

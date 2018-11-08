@@ -2,12 +2,16 @@
 {% block content %}
 <h1>Email Validation</h1>
 <div class="input-group mb-3">
-    <input id='email-to-verify' type="text" class="form-control" placeholder="이메일을 입력하세요." aria-label="Email to verify" aria-describedby="button-verify">
+    <textarea id='email-to-verify' class="form-control" placeholder="이메일을 입력하세요." aria-label="Email to verify" aria-describedby="button-verify"></textarea>
     <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" id="button-verify">검사</button>
     </div>
 </div>
-<div class="info"></div>
+<div class="info">
+    <table class="table table-sm">
+        
+    </table>
+</div>
 
 {% endblock %}
 {% block script %}
@@ -36,6 +40,7 @@ $(function(){
             data:post_data
         })
         .then(function(result){
+            console.log(result)
             $('#email-to-verify').addClass('border-success')
             $('.info').text(result['message'])
         })

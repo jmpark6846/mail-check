@@ -9,7 +9,10 @@ class MailValidationTestCase(TestCase):
         self.mail = "jmpark6846@gmail.com"
         self.invalid_mail = "werj@wmeifow.co"
 
-    def test_can_validate_an_mail(self):
-        mail_data = { 'email': self.mail }
-        res = self.client.post(reverse('checkmail:validate_mail'), mail_data)
+    def test_can_validate_a_correct_mail(self):
+        res = self.client.get(reverse('checkmail:validate_mail', kwargs={'email':self.mail}))
         self.assertEqual(res.status_code, 200)
+
+    def test_can_validate_an_incorrect_mail(self):
+        res = self.client.get(reverse('checkmail:validate_mail', kwargs={'email':self.invalid_mail}))
+        self.assertEqual(res.status_code, 400)
