@@ -1,9 +1,11 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from rest_framework.response import Response
 from .email import validate_email
 
 
 @api_view(['GET'])
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
 def mail_validation(request, email):
 
     if not email:
