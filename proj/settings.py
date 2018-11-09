@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'checkmail.apps.CheckmailConfig',
     'rest_framework',
-    'rest_framework.authtoken',
-    'user',
+    # 'rest_framework.authtoken',
+    # 'user',
 ]
 
 MIDDLEWARE = [
@@ -141,7 +141,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1/minute',
-        'user': '5/minute'
+        'anon': '5/minute',
+        # 'user': '10/minute'
     }
 }

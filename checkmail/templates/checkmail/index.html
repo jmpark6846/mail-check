@@ -4,29 +4,18 @@
     <h1 class="my-3">Email Validation</h1>
 
         <div class="card">
-            {% if user.is_authenticated %}
-            <div class="card-body">
-                {{user.auth_token}}
-                <pre class="mt-3"><code>curl -H 'Authorization: Token {{user.auth_token}}' -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/{YOUR_EMAIL}</code></pre>
-            </div>
-
-            {% else %}
             <div class="card-body">
                 <pre><code>curl -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/{YOUR_EMAIL}</code></pre>
             </div>
-            {% endif %}
         </div>
-
-
     <div class="my-3">
         <h3>사용한도</h3>
-        <div>인증 유저: 5회/분</div>
-        <div>비인증 유저: 1회/분</div>
+        <div>10회/분</div>
     </div>
     <div class="my-3">
         <h3>사용 예시</h3>
-        <pre class="text-left"><code>joonmo@linux:~$ curl -H 'Authorization: Token 44ea64ba656de4d175b176bfaac8aa2e29614709' -XGET http://localhost:8000/checkmail/jmpark6846@gmail.com<br>{"email":"jmpark6846@gmail.com","valid":true,"status":200,"message":"존재하는 이메일입니다."}</code></pre>
-        <pre class="text-left"><code>joonmo@linux:~$ curl -H 'Authorization: Token 44ea64ba656de4d175b176bfaac8aa2e29614709' -XGET http://localhost:8000/checkmail/jmpaawefaefrk6846@gmail.com<br>{"email":"jmpaawefaefrk6846@gmail.com","valid":false,"status":400,"message":"gmail.com의 메일서버(gmail-smtp-in.l.google.com.)에 계정이 존재하지 않습니다."}</code></pre>
+        <pre class="text-left"><code>joonmo@linux:~$ curl -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/jmpark6846@gmail.com<br>{"email":"jmpark6846@gmail.com","valid":true,"status":200,"message":"존재하는 이메일입니다."}</code></pre>
+        <pre class="text-left"><code>joonmo@linux:~$ curl -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/jmpaawefaefrk6846@gmail.com<br>{"email":"jmpaawefaefrk6846@gmail.com","valid":false,"status":400,"message":"gmail.com의 메일서버(gmail-smtp-in.l.google.com.)에 계정이 존재하지 않습니다."}</code></pre>
     </div>
 
 
