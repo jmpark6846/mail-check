@@ -5,7 +5,7 @@
 
         <div class="card">
             <div class="card-body">
-                <pre><code>curl -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/{YOUR_EMAIL}</code></pre>
+                <pre><code>curl -XGET https://mail-check.herokuapp.com/checkmail/{YOUR_EMAIL}</code></pre>
             </div>
         </div>
     <div class="my-3">
@@ -14,8 +14,8 @@
     </div>
     <div class="my-3">
         <h3>사용 예시</h3>
-        <pre class="text-left"><code>joonmo@linux:~$ curl -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/jmpark6846@gmail.com<br>{"email":"jmpark6846@gmail.com","valid":true,"status":200,"message":"존재하는 이메일입니다."}</code></pre>
-        <pre class="text-left"><code>joonmo@linux:~$ curl -XGET http://mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com/checkmail/jmpaawefaefrk6846@gmail.com<br>{"email":"jmpaawefaefrk6846@gmail.com","valid":false,"status":400,"message":"gmail.com의 메일서버(gmail-smtp-in.l.google.com.)에 계정이 존재하지 않습니다."}</code></pre>
+        <pre class="text-left"><code>joonmo@linux:~$ curl -XGET https://mail-check.herokuapp.com/checkmail/jmpark6846@gmail.com<br>{"email":"jmpark6846@gmail.com","valid":true,"status":200,"message":"존재하는 이메일입니다."}</code></pre>
+        <pre class="text-left"><code>joonmo@linux:~$ curl -XGET https://mail-check.herokuapp.com/checkmail/jmpaawefaefrk6846@gmail.com<br>{"email":"jmpaawefaefrk6846@gmail.com","valid":false,"status":400,"message":"gmail.com의 메일서버(gmail-smtp-in.l.google.com.)에 계정이 존재하지 않습니다."}</code></pre>
     </div>
 
 
