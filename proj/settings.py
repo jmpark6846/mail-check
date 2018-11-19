@@ -26,7 +26,7 @@ SECRET_KEY = 'snu5=qg%cq0jx44bpe74^8^*58v1v!)oy5sjn*)q-y7b&rq($9'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'mail-env.iaadg2wdty.ap-northeast-2.elasticbeanstalk.com',
+    'mail-check.herokuapp.com',
     'localhost',
 ]
 
